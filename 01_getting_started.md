@@ -23,12 +23,11 @@ more information on HTML, visit the
 ```
 [See code changes](https://github.com/livestax/tutorial-pet-finder/commit/5454cd6d8b5ca4322387bf238bccf2d5d88b1b61)
 
-2. Add the LiveStax JavaScript to the HTML Page
+2. Add the LiveStax JavaScript
 ---
-Next, for us to interact with LiveStax and to allow the app to become
-visible on LiveStax we need to include the LiveStax JavaScript file.
-This needs to be done before any other JavaScript is called, therefore,
-we’ll place this within the `<head>` tag.
+Next, we include the LiveStax JavaScript file that will make our app
+compatible with LiveStax. This needs to be done before any other
+JavaScript is called, therefore, we’ll place this within the `<head>` tag.
 
 ```html
 <script src="http://livestax.com/assets/livestax-0.1.0.js"></script>
@@ -122,3 +121,90 @@ wrap each section in div tags with the class `col-md-12` applied.
 ```
 
 [See code changes](https://github.com/livestax/tutorial-pet-finder/commit/ed6946949fb69e1944274777dee6e8b89415c33c)
+
+5. Request Data from API
+===
+Now, let us make a request to the Pet Finder Service API. For your information, the URL for the service is
+http://tutorial-pet-service.herokuapp.com and it takes a parameter called `name`. In order to make a request,
+we are going to use the [jQuery](http://jquery.com/) library. There are many alternative libraries that you
+could use instead. Let’s add the jQuery framework from the CDN within the `<head>` tags.
+
+```html
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+```
+
+The text input and anchor HTML elements will need to be targeted via JavaScript, so we add CSS classes
+to the elements for them to be easily identified. As a convention, we prefix these CSS classes with `js-`.
+
+```html
+<input type="text" name="name" class="form-control js-pet-name-input">
+...
+<a href="#" class="btn btn-primary js-find-pet-submit">Find Pet</a>
+```
+
+We now create a `main.js` file, that will provide a location for our custom JavaScript. This file will be
+included into our `index.html` file via a `<script>` tag within the `<head>` element.
+
+```html
+<script src="js/main.js"></script>
+```
+
+So, within our `main.js`, lets add the jQuery function that will be called when the web page has been loaded.
+```html
+$(document).ready(function() {
+});
+```
+
+Then, we set up an event handler for the click event of the "Find Pet" button.
+```html
+$(".js-find-pet-submit").click(function() {
+});
+```
+
+Now, we need to capture the text within the pet name input box.
+```html
+var petName = $('.js-pet-name-input').val();
+```
+
+Finally, lets make our request to the Pet Finder Service API.
+```html
+$.getJSON("http://tutorial-pet-service.herokuapp.com/?name=" + petName, function(pet) {
+});
+```
+
+[See code changes](https://github.com/livestax/tutorial-pet-finder/commit/3f9615c7c94947b5f61450ac9f8de15101342c98)
+
+6. Render Data to the DOM
+===
+Now we are getting the data from the Pet Finder, which is a JSON object, we can update the page with this
+data. An example JSON response (when the `name` parameter "sam" is passed to the service) is as follows:
+
+```json
+{
+  "name":"sam",
+  "type":"horse",
+  "image_url":"http://tutorial-pet-service.herokuapp.com/images/returnable/horse.jpg"
+}
+```
+
+Firstly, as in the previous step, we need to add targeting classes to the elements that will change, that is the 2 header
+and image elements.
+
+```html
+<h1 class="js-pet-name">Pet Name</h1>
+<h2 class="js-pet-type">Pet Type</h2>
+<img src="http://placehold.it/350x350" class="img-responsive js-pet-img" alt="Pet Image">
+```
+
+Now we can easily manipulate these elements, so lets switch to `main.js` and add the code that will use the data we are
+getting back, this will be placed within the `getJSON()` block.
+
+```html
+$(".js-pet-name").html(pet.name);
+$(".js-pet-type").html(pet.type);
+$(".js-pet-img").attr("src", pet.image_url);
+```
+
+And that’s it, you now have an app that you can use within LiveStax to find a pet from a name it is passed.
+
+[See code changes](https://github.com/livestax/tutorial-pet-finder/commit/2fbb93616f4185676ee3e082b0cd512f94520248)
