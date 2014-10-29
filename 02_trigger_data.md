@@ -39,3 +39,38 @@ Livestax.trigger("newpet", "petName");
 [More information on Triggers](https://github.com/livestax/docs#trigger)
 
 [See code changes](https://github.com/livestax/tutorial-pet-finder/commit/136046591087b3312cded431e46fe6e3289a7cfe)
+
+3. Receive and Present Data - Part One
+---
+
+As before, in this app we will include the [jQuery](http://www.jquery.com) Library to easily manipulate
+the DOM and `main.js` to separate any JavaScript from the HTML. A `<div>` tag
+will be used as a container for the list of names we receive, with the
+class `js-pet-names` to easily target it within JavaScript, and the class
+`list-group` to apply the list group style from the
+[LiveStax Theme](http://livestax.github.io/theme).
+
+```html
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="js/main.js"></script>
+...
+<div class="col-md-12">
+  <div class=" list-group js-pet-names">
+  </div>
+</div>
+```
+
+Next, we want the app to prepend the pet data to the `<div>` tag when the app
+receives the `pet-finder.newpet` trigger. This will be wrapped in a
+`$(document).ready()` function so that the code will only be called when the
+page is ready.
+
+```javascript
+$(document).ready(function() {
+  Livestax.on("pet-finder.newpet", function(petName) {
+    $(".js-pet-names").prepend("<a href=’#’ class=’list-group-item’>" + petName + "</a>");
+  });
+});
+```
+
+[See code changes](https://github.com/livestax/tutorial-pet-finder-history/commit/4c1b19d305ac92027d4a48c5fd1379f87162adef)
