@@ -102,3 +102,40 @@ You may notice that we remove and add the "active" CSS class using the `removeCl
 present some user feedback to the User to what is active at this point in time.
 
 [See code changes](https://github.com/livestax/tutorial-pet-finder-history/commit/df7816cdaf89d4a4c737d00ea2074bf1403d1b2e)
+
+5. Extracting DOM Manipulation
+---
+
+When writing code, it is common practice to extract common functionality to
+functions/methods where they can be reused multiple times. As we want to get a pet and
+update the DOM when we submit directly in the app **and** when data from the Pet Finder
+History app is received, this would be a prime candidate to refactor out into a function.
+So, lets start by moving the code to a `updatePetDetails()` function.
+
+```javascript
+function updatePetDetails(petName) {
+  $.getJSON("http://tutorial-pet-service.herokuapp.com/?name=" + petName, function(pet) {
+    $(".js-pet-name").html(pet.name);
+    $(".js-pet-type").html(pet.type);
+    $(".js-pet-img").attr("src", pet.image_url);
+  });
+};
+```
+
+Now we can replace the code in the `click()` function to call the `updatePetDetails()` function as follows:
+
+```javascript
+...
+var petName = $('.js-pet-name-input').val();
+updatePetDetails(petName);
+Livestax.trigger("newpet", petName);
+...
+```
+To improve user feedback, when the view has been updated, the input box should empty allowing the user
+to enter another name. To do this, we will set the value of the input to an empty string.
+
+```javascript
+$(".js-pet-name-input").val("");
+```
+
+[See code changes](https://github.com/livestax/tutorial-pet-finder/commit/7ff06d952bf3501cf191f99d2ea31ee4297b8840)
