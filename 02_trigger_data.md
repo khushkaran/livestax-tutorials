@@ -74,3 +74,31 @@ $(document).ready(function() {
 ```
 
 [See code changes](https://github.com/livestax/tutorial-pet-finder-history/commit/4c1b19d305ac92027d4a48c5fd1379f87162adef)
+
+4. Communicate Data - Part Two
+---
+
+We now have a history of searched pet names, but we also want to be able to
+redisplay the information on that name in the Pet Finder app. To do this, we
+will use a [Key Value Store](https://github.com/livestax/docs#key-value-store)
+where another app can access it. The links are rendered after the JavaScript has
+been loaded, therefore, we need to bind the click capture function to a parent
+of the link. Here, we will use `document.body` as the parent and will communicate
+the Pet Name for the Pet Finder app to utilise to update it’s view.
+
+```javascript
+$(document.body).on("click", ".js-pet-names a", function(event) {
+  var clickedLink, petName;
+  clickedLink = event.target;
+  petName = clickedLink.text;
+  $(".js-pet-names a").removeClass("active");
+  $(clickedLink).addClass("active");
+  Livestax.store.set("getpet", petName);
+});
+```
+
+You may notice that we remove and add the "active" CSS class using the `removeClass()` and
+`addClass()` functions respectively. This is because the LiveStax Theme uses this class to
+present some user feedback to the User to what is active at this point in time.
+
+[See code changes](https://github.com/livestax/tutorial-pet-finder-history/commit/df7816cdaf89d4a4c737d00ea2074bf1403d1b2e)
