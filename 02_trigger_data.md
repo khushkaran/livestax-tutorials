@@ -154,3 +154,34 @@ Livestax.store.watch("pet-finder-history.getpet", updatePetDetails);
 And now we have two apps that can communicate with each other and transmit information to each other.
 
 [See code changes](https://github.com/livestax/tutorial-pet-finder/commit/1de72ba53291d6cb78b1cb1f171d5638fc6a4cc6)
+
+Further Development
+===
+
+UI Considerations
+---
+
+When this app is added, it displays an empty page, which could look as if it was broken to a
+user. Therefore, it would be helpful for a notice to be shown to user if there is nothing in
+the history. The [LiveStax Theme](http://livestax.github.io/theme/) provides a notices component
+that can be easily dropped in.
+
+```html
+<div class="notice notice-info">
+  <div class="notice-icon">
+    <i class="fa fa-flag"></i>
+  </div>
+  <div class="notice-text">
+    <p class="notice-title">Empty History</p>
+    <p>No Pet names have been searched for, search for a name in the Pet Finder App to create a History.</p>
+  </div>
+</div>
+```
+
+This now shows at all times, which is confusing, therefore, we’ll hide it when an item is prepended to the list.
+
+```javascript
+$(".notice").hide();
+```
+
+[See code changes](https://github.com/livestax/tutorial-pet-finder-history/commit/df7840d4ebbf737deb9a8c8404bb39eb09f34fdb)
