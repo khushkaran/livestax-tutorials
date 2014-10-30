@@ -139,3 +139,18 @@ $(".js-pet-name-input").val("");
 ```
 
 [See code changes](https://github.com/livestax/tutorial-pet-finder/commit/7ff06d952bf3501cf191f99d2ea31ee4297b8840)
+
+6. Receive and Present Data - Part Two
+---
+
+When using the [Key Value Store](https://github.com/livestax/docs#key-value-store), the app needs to
+watch the store using the `Livestax.store.watch()` function we can then connect this directly to the
+updatePetDetails() function.
+
+```javascript
+Livestax.store.watch("pet-finder-history.getpet", updatePetDetails);
+```
+
+And now we have two apps that can communicate with each other and transmit information to each other.
+
+[See code changes](https://github.com/livestax/tutorial-pet-finder/commit/1de72ba53291d6cb78b1cb1f171d5638fc6a4cc6)
