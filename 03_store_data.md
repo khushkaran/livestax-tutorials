@@ -58,3 +58,32 @@ We now have created a route at "/" that accepts both GET and POST requests and w
 The last thing we need to do is to move our static "js" directory into a new "public" directory and move our index.html into a new "views" directory and change the extension to ".ejs". Now we can use the command `node app.js` and visit [http://localhost:5000](http://localhost:5000) to see our app.
 
 [See code changes](https://github.com/livestax/tutorial-pet-finder-history/commit/e46e76310c91ba165cbd33968d7c0723dc9b7c57)
+
+2. Signed Request - Part One
+---
+
+In LiveStax, to gain more information on your app, e.g. the current instance, whether the user is an admin, etc, the app needs to use POST. Once it does, LiveStax will POST to it rather using the usual GET request, within the POST request, a `signed_request` parameter is also sent. In Express, we need to use another package to parse the incoming request body, [Body Parser](https://github.com/expressjs/body-parser).
+
+```shell
+npm install body-parser --save
+```
+
+Firstly, we'll need to require the Body Parser and tell the app to use it using the `urlencoded` scheme:
+
+```javascript
+var express, app, bodyParser;
+...
+bodyParser  = require('body-parser');
+...
+app.use(bodyParser.urlencoded( {
+  extended: true
+}));
+```
+
+Now that the app will be able to parse the incoming request, all we need to do is set it to a variable so that we can use it.
+
+```javascript
+var signedRequest = request.body.signed_request;
+```
+
+[See code changes](https://github.com/livestax/tutorial-pet-finder-history/commit/8eaa34ffb00eb3621e10fb511ac97d7fbe57a850)
