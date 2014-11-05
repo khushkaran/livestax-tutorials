@@ -87,3 +87,45 @@ var signedRequest = request.body.signed_request;
 ```
 
 [See code changes](https://github.com/livestax/tutorial-pet-finder-history/commit/8eaa34ffb00eb3621e10fb511ac97d7fbe57a850)
+
+3. Signed Request - Part Two
+---
+
+The `signed_request` parameter that we have parsed is in fact a [JSON Web Token](http://jwt.io) that needs to be decoded. In LiveStax, each signed request is encoded using the app's secret, so that we can verify the signed request. As we will need this app secret to verify the token, we are going to use another package to store the app secret. So let's install [dot-env](https://github.com/supershabam/dot-env):
+
+```shell
+npm install dot-env --save
+```
+
+dot-env works by looking for a `.env.json` file and merging it into `process.env`, therefore lets create the file (replace "TODO" with your own app secret):
+
+```javascript
+{
+  "APP_SECRET": "TODO"
+}
+```
+
+We need to ensure that dot-env is started as soon as possible, so at the top of `app.js` let's add the following line:
+
+```javascript
+require('dot-env');
+```
+
+So, now we can use the environment variables set in our `.env.json`. Next we need to decode the signed request, which we'll do by using the recommended package by the team behind [JWT](http://jwt.io), [jsonwebtoken](https://github.com/auth0/node-jsonwebtoken):
+
+```shell
+npm install jsonwebtoken --save
+```
+
+Now we can use the package to verify the signed request using the `verify` function:
+
+```javascript
+var express, app, bodyParser, jwt, appSecret;
+...
+jwt = require('jsonwebtoken');
+appSecret = process.env.APP_SECRET;
+...
+var signedRequest = request.body.signed_request;
+jwt.verify(signedRequest, appSecret, function(err, decoded) {
+});
+```
