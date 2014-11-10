@@ -155,3 +155,33 @@ var signedRequest = $("body").data("signed-request");
 ```
 
 [See code changes](https://github.com/livestax/tutorial-pet-finder-history/commit/d853a9a021fa18070981538988262c551454b828)
+
+5. POST Required Data
+---
+
+In order to save the data from the history app, we need to provide that data to the server, to do this we will POST the data we require; the pet name and the signed request token. So in "main.js", when a name is received, let's POST the data:
+
+```javascript
+...
+$.post("/addtohistory", {pet_name: petName, signed_request: signedRequest});
+...
+```
+
+Here, we have provided the data required and as per the code need a new route called `/addtohistory`, so let's add that to "app.js".
+
+```javascript
+app.post('/addtohistory', function(request, response) {
+});
+```
+
+Finally, let's store that received pet name and signed request token in variables so that we can use them in the future.
+
+```javascript
+...
+var petName, signedRequest;
+petName = request.body.pet_name;
+signedRequest = request.body.signed_request;
+...
+```
+
+[See code changes](https://github.com/livestax/tutorial-pet-finder-history/commit/abb4e90429222fa98f59c01082d43926a7396cd2)
