@@ -129,3 +129,5 @@ var signedRequest = request.body.signed_request;
 jwt.verify(signedRequest, appSecret, function(err, decoded) {
 });
 ```
+
+[See code changes](https://github.com/livestax/tutorial-pet-finder-history/commit/8dd19f94aa9fd5e144fc8e62a0dd4b5831265acc)
