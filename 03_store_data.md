@@ -131,3 +131,27 @@ jwt.verify(signedRequest, appSecret, function(err, decoded) {
 ```
 
 [See code changes](https://github.com/livestax/tutorial-pet-finder-history/commit/8dd19f94aa9fd5e144fc8e62a0dd4b5831265acc)
+
+4. Communicate Signed Request
+---
+
+The signed request token is made up of a series of key-value pairs, for more information on the contents of it visit the [LiveStax Documentation](https://github.com/livestax/docs#signed-request). To save data unique to the instance of the app in question, we are concerned with the `instance_id`. To enable use of the instance ID, we need to make the token available to the template and consquently, it will be available to JavaScript, which can in turn, be decoded as it contains the instance ID.
+
+Firstly, let's render the token to the template, we need to move the `response.render()` function to within the `jwt.verify()` function. This will ensure that the page is only rendered if the token has been verified.
+
+```javascript
+response.render('index', {signed_request: signedRequest});
+```
+
+To display the passed data, we need to add the variable to the template, here we will add it to a `signed-request` data attribute to the body tag.
+
+```javascript
+<body data-signed-request="<%= signed_request  %>">
+```
+
+Finally, let's capture the signed request token in the JavaScript so that we can use it at a later date.
+```javascript
+var signedRequest = $("body").data("signed-request");
+```
+
+[See code changes](https://github.com/livestax/tutorial-pet-finder-history/commit/d853a9a021fa18070981538988262c551454b828)
