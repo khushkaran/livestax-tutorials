@@ -185,3 +185,67 @@ signedRequest = request.body.signed_request;
 ```
 
 [See code changes](https://github.com/livestax/tutorial-pet-finder-history/commit/abb4e90429222fa98f59c01082d43926a7396cd2)
+
+6. Save History
+---
+
+We are going to use [Redis](http://redis.io) as the data store for the history data, it is a very simple key-value store. As noted in the introduction of this tutorial, we need to install Redis onto your local machine, instructions can be found on their [website](http://redis.io/download). After this, we need to install a Redis client, a tool that enables our server to talk to the database. On the Redis [website](http://redis.io/clients), there are many provided, we will use the one recommended for Node.js, ["node_redis"](https://github.com/mranney/node_redis). In its repository's README, the instructions provide the package required, however, also state that using a supplementary package, "hiredis", is faster, so that is what we will do:
+
+```shell
+npm install hiredis redis --save
+```
+
+To connect to Redis, we will use a URL, usually your localhost address (127.0.0.1) and your port (default: 6379), so let's add this variable to the ".env" file:
+
+```javascript
+...
+"REDIS_URL": "http://127.0.0.1:6379"
+...
+```
+
+Now, in your "app.js", lets assign the Redis client to a variable using the `createClient()` function with the Redis port and hostname. We will also need to ensure we are using the correct port, this can have issues when using different services such as [RedisToGo](http://redistogo.com/), so we will use the second colon to split the address:
+
+```javascript
+...
+var express, app, bodyParser, jwt, appSecret, redisURL, redis;
+...
+redisURL = require('url').parse(process.env.REDIS_URL);
+redis = require('redis').createClient(redisURL.port, redisURL.hostname);
+if (redisURL.auth) {
+  redis.auth(redisURL.auth.split(":")[1]);
+}
+...
+```
+
+Before we save any data, we want to ensure that there is a pet name passed (not NULL or an empty string):
+
+```javascript
+...
+var petName, signedRequest;
+petName = request.body.pet_name;
+signedRequest = request.body.signed_request;
+if (petName) {
+};
+```
+
+Now as before, we want to verify the signed request token with the app secret to get our instance ID:
+
+```javascript
+var petName, signedRequest, instanceID;
+...
+if (petName) {
+  jwt.verify(signedRequest, appSecret, function(err, decoded) {
+  instanceID = decoded.instance_id;
+  });
+}
+```
+
+Finally, we will use [Redis lists](http://redis.io/commands#list) to save the history of pet names. The `LPUSH` command in Redis prepends an element to a list of the name provided. If there is no list, it will create one and then add the element to it.
+
+```javascript
+...
+redis.lpush(instanceID, petName);
+...
+```
+
+[See code changes](https://github.com/livestax/tutorial-pet-finder-history/commit/fd9072b57de1d2d5c530d7f2ebcde08d62f64e1d)
