@@ -249,3 +249,38 @@ redis.lpush(instanceID, petName);
 ```
 
 [See code changes](https://github.com/livestax/tutorial-pet-finder-history/commit/fd9072b57de1d2d5c530d7f2ebcde08d62f64e1d)
+
+7. Render History
+---
+
+Now that the history has been saved, we want that history to be visible to us, so we want to render the history to the view. Firstly, we want to get the stored pet names from Redis using the `LRANGE` command within [Redis lists](http://redis.io/commands#list) then pass it to the view. To display all the records within a list, we use the beginning index "0" and the last index "-1".
+
+```javascript
+redis.lrange(decoded.instance_id, 0, -1, function(err, petNameList) {
+  response.render('index', {signed_request: signedRequest, pet_names: petNameList});
+});
+```
+
+The ejs templating engine allows us to use JavaScript within our view, e.g. iterate over arrays, if/else statements, and we can utilize this to present the data to the user. In ejs, JavaScript statements are written within `<%` and `%>` and to directly render the result of a statement `<%=` and `%>`. Firstly, we want to add an iterator of pet names within an `if` statement, on whether there are pet names, inside the list-group div.
+
+```javascript
+...
+<% if (pet_names.length > 0) { %>
+  <% for(var i=0; i<pet_names.length; i++) { %>
+    <a href="#" class="list-group-item"><%= pet_names[i] %></a>
+  <% } %>
+<% } %>
+...
+```
+
+So now we can see our history from Redis, however, if you reload the app, we see both the notice and the history. We can fix this with some JavaScript in our "main.js", it will hide the notice if there is history displayed:
+
+```javascript
+...
+if ($(".js-pet-names a").length > 0) {
+  $(".notice").hide();
+};
+...
+```
+
+[See code changes](https://github.com/livestax/tutorial-pet-finder-history/commit/8aec1c0e0c8d566a88b3b4f6cbdbf23d7f0c6c37)
