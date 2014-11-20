@@ -333,3 +333,43 @@ jwt.verify(signedRequest, appSecret, function(err, decoded) {
 ```
 
 [See code changes](https://github.com/livestax/tutorial-pet-finder-history/commit/5ef5a509203ab174fb4e4158ed390595b37abbfd)
+
+9. Confirmation Dialog
+---
+
+We are now successfully clearing the history, however, as this is a destructive action, it would be helpful to provide the users with a dialog to confirm whether or not they are sure. We can do this very simply using the `Livestax.dialog.show()` function, further information is available in the [LiveStax documentation](https://github.com/livestax/docs#dialogs).
+
+Firstly, we need to create the dialog data that will be passed to the `show()` function:
+
+```javascript
+var dialogData = {
+  title: "Are you sure?",
+  message: "Are you sure you want to clear your history? This is an irreversible action and cannot be undone.",
+  buttons: [
+    {
+      title: "Yes",
+      callback: function(){
+        $.post("/clearhistory", {signed_request: signedRequest});
+        $(".js-pet-names a").remove();
+        $(".notice").show();
+      },
+      type: "danger"
+    },
+    {
+      title: "Cancel",
+      callback: function(){},
+      type: "ok"
+    }
+  ]
+};
+```
+
+Our `dialogData` object contains the title, message and the buttons we want the dialog to display. Notice our functions that cleared the history have moved into a function in the `callback` of the yes button. Now that our data is ready, all we need to do is show the dialog using the `show()` function.
+
+```javascript
+...
+Livestax.dialog.show(dialogData);
+...
+```
+
+[See code changes](https://github.com/livestax/tutorial-pet-finder-history/commit/2aaa7e09a78f86d68cc6d9a8a8bee58df2975458)
