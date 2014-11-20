@@ -284,3 +284,52 @@ if ($(".js-pet-names a").length > 0) {
 ```
 
 [See code changes](https://github.com/livestax/tutorial-pet-finder-history/commit/8aec1c0e0c8d566a88b3b4f6cbdbf23d7f0c6c37)
+
+8. Clear History
+---
+
+LiveStax provides a menu in the top right of your app, however, you may want to add additional item to it. LiveStax provides a way of doing this using the `Livestax.menu.set()` function, to read more on this visit the [LiveStax documentation](https://github.com/livestax/docs#menu). First let's set the menu item called "Clear History" with an eraser icon in our "main.js":
+
+```javascript
+Livestax.menu.set("Clear History", "eraser", function() {
+});
+```
+
+Note: "eraser" is a icon provided by [FontAwesome](http://fortawesome.github.io/Font-Awesome/icons/), all you have to do is provide the name minus the preceding "fa-", so "fa-eraser" becomes "eraser".
+
+Now we place our logic within the function, we want the following things to happen:
+
+* clear the history for our instance
+* remove all the names in the history app
+* show the empty history notice
+
+```javascript
+...
+$.post("/clearhistory", {signed_request: signedRequest});
+$(".js-pet-names a").remove();
+$(".notice").show();
+...
+```
+
+The code above stipulates we need to have a POST route called `/clearhistory` in our "app.js", so let's add it:
+
+```javascript
+app.post('/clearhistory', function(request, response) {
+});
+```
+
+Finally, we need the instance ID to clear the correct history and we'll use the Redis `DEL` [function](http://redis.io/commands/del) to delete the data.
+
+```javascript
+...
+var signedRequest, instanceID;
+
+signedRequest = request.body.signed_request;
+jwt.verify(signedRequest, appSecret, function(err, decoded) {
+  instanceID = request.body.instance_id;
+  redis.del(instanceID);
+});
+...
+```
+
+[See code changes](https://github.com/livestax/tutorial-pet-finder-history/commit/5ef5a509203ab174fb4e4158ed390595b37abbfd)
