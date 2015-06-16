@@ -15,8 +15,8 @@ app with the Livestax JavaScript and the Livestax Theme from the CDN.
 + <!DOCTYPE html>
 + <html>
 +   <head>
-+     <script src="//dz44vc6ose3il.cloudfront.net/livestax-0.2.0.min.js"></script>
-+     <link href="//dz44vc6ose3il.cloudfront.net/theme-0.0.1.css" rel="stylesheet" type="text/css" media="all">
++     <script src="//assets.livestax.com/livestax-0.2.0.min.js"></script>
++     <link href="//assets.livestax.com/theme-0.0.1.css" rel="stylesheet" type="text/css" media="all">
 +   </head>
 +   <body>
 +   </body>
@@ -52,7 +52,7 @@ class `js-pet-names` to easily target it within JavaScript, and the class
 
 ```diff
 ...
-<link href="//dz44vc6ose3il.cloudfront.net/theme-0.0.1.css" rel="stylesheet" type="text/css" media="all">
+<link href="//assets.livestax.com/theme-0.0.1.css" rel="stylesheet" type="text/css" media="all">
 +<script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
 +<script src="js/main.js"></script>
 ...

@@ -29,7 +29,7 @@ JavaScript is called, therefore, we’ll place this within the `<head>` tag.
 ...
 <html>
   <head>
-+   <script src="//dz44vc6ose3il.cloudfront.net/livestax-0.2.0.min.js"></script>
++   <script src="//assets.livestax.com/livestax-0.2.0.min.js"></script>
   </head>
   <body>
 ...
@@ -48,8 +48,8 @@ documentation by clicking [here](http://getbootstrap.com/).
 ```diff
 ...
 <head>
-  <script src="//dz44vc6ose3il.cloudfront.net/livestax-0.2.0.min.js"></script>
-+ <link href="//dz44vc6ose3il.cloudfront.net/theme-0.0.1.css" rel="stylesheet" type="text/css" media="all" />
+  <script src="//assets.livestax.com/livestax-0.2.0.min.js"></script>
++ <link href="//assets.livestax.com/theme-0.0.1.css" rel="stylesheet" type="text/css" media="all" />
 </head>
 ...
 ```
@@ -147,8 +147,8 @@ could use instead. Let’s add the jQuery framework from the CDN within the `<he
 ```diff
 ...
 <head>
-  <script src="//dz44vc6ose3il.cloudfront.net/livestax-0.2.0.min.js"></script>
-  <link href="//dz44vc6ose3il.cloudfront.net/theme-0.0.1.css" rel="stylesheet" type="text/css" media="all" />
+  <script src="//assets.livestax.com/livestax-0.2.0.min.js"></script>
+  <link href="//assets.livestax.com/theme-0.0.1.css" rel="stylesheet" type="text/css" media="all" />
 + <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
 </head>
 ...
@@ -176,8 +176,8 @@ included into our `index.html` file via a `<script>` tag within the `<head>` ele
 ```diff
 ...
 <head>
-  <script src="//dz44vc6ose3il.cloudfront.net/livestax-0.2.0.min.js"></script>
-  <link href="//dz44vc6ose3il.cloudfront.net/theme-0.0.1.css" rel="stylesheet" type="text/css" media="all" />
+  <script src="//assets.livestax.com/livestax-0.2.0.min.js"></script>
+  <link href="//assets.livestax.com/theme-0.0.1.css" rel="stylesheet" type="text/css" media="all" />
   <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
 + <script src="js/main.js"></script>
 </head>
