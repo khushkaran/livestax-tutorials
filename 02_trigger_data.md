@@ -38,7 +38,7 @@ $.getJSON("http://tutorial-pet-service.herokuapp.com/?name=" + petName, function
 +Livestax.trigger("newpet", "petName");
 ```
 
-[More information on Triggers](https://github.com/livestax/docs#trigger)
+[More information on Triggers](http://developers.livestax.com/v0.2.0/docs/eventsd#trigger)
 
 3. Receive and Present Data - Part One
 ---
@@ -80,7 +80,7 @@ page is ready.
 
 We now have a history of searched pet names, but we also want to be able to
 redisplay the information on that name in the Pet Finder app. To do this, we
-will use a [Key Value Store](https://github.com/livestax/docs#key-value-store)
+will use a [Key Value Store](http://developers.livestax.com/v0.2.0/docs/key-value-store)
 where another app can access it. The links are rendered after the JavaScript has
 been loaded, therefore, we need to bind the click capture function to a parent
 of the link. Here, we will use `document.body` as the parent and will communicate
@@ -153,7 +153,7 @@ $.getJSON("http://tutorial-pet-service.herokuapp.com/?name=" + petName, function
 6. Receive and Present Data - Part Two
 ---
 
-When using the [Key Value Store](https://github.com/livestax/docs#key-value-store), the app needs to
+When using the [Key Value Store](http://developers.livestax.com/v0.2.0/docs/key-value-store), the app needs to
 watch the store using the `Livestax.store.watch()` function we can then connect this directly to the
 updatePetDetails() function.
 
@@ -183,14 +183,14 @@ that can be easily dropped in.
 ```diff
 ...
 <div class="col-md-12">
-+  <div class="notice notice-info">
-+    <div class="notice-icon">
-+      <i class="fa fa-flag"></i>
++  <div class="notice">
++    <div class="media-badge media-badge-lg media-badge-info-inverse img-circle">
++      <span class="media-badge-container">
++        <i class="fa fa-flag"></i>
++      </span>
 +    </div>
-+    <div class="notice-text">
-+      <p class="notice-title">Empty History</p>
-+      <p>No Pet names have been searched for, search for a name in the Pet Finder App to create a History.</p>
-+    </div>
++    <h2 class="text-info"><strong>Empty History</strong></h2>
++    <p>No Pet names have been searched for, search for a name in the Pet Finder App to create a History.</p>
 +  </div>
 </div>
 ...
