@@ -183,14 +183,14 @@ that can be easily dropped in.
 ```diff
 ...
 <div class="col-md-12">
-+  <div class="notice notice-info">
-+    <div class="notice-icon">
-+      <i class="fa fa-flag"></i>
++  <div class="notice">
++    <div class="media-badge media-badge-lg media-badge-info-inverse img-circle">
++      <span class="media-badge-container">
++        <i class="fa fa-flag"></i>
++      </span>
 +    </div>
-+    <div class="notice-text">
-+      <p class="notice-title">Empty History</p>
-+      <p>No Pet names have been searched for, search for a name in the Pet Finder App to create a History.</p>
-+    </div>
++    <h2 class="text-info"><strong>Empty History</strong></h2>
++    <p>No Pet names have been searched for, search for a name in the Pet Finder App to create a History.</p>
 +  </div>
 </div>
 ...
