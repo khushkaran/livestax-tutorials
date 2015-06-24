@@ -143,7 +143,7 @@ Now we can use the package to verify the signed request using the `verify` funct
 4. Communicate Signed Request
 ---
 
-The signed request token is made up of a series of key-value pairs, for more information on the contents of it visit the [Livestax Documentation](https://github.com/livestax/docs#signed-request). To save data unique to the instance of the app in question, we are concerned with the `instance_id`. To enable use of the instance ID, we need to make the token available to the template and consquently, it will be available to JavaScript, which can in turn, be decoded as it contains the instance ID.
+The signed request token is made up of a series of key-value pairs, for more information on the contents of it visit the [Livestax Documentation](http://developers.livestax.com/v0.2.0/docs/signed-request). To save data unique to the instance of the app in question, we are concerned with the `instance_id`. To enable use of the instance ID, we need to make the token available to the template and consquently, it will be available to JavaScript, which can in turn, be decoded as it contains the instance ID.
 
 Firstly, let's render the token to the template, we need to move the `response.render()` function to within the `jwt.verify()` function. This will ensure that the page is only rendered if the token has been verified.
 
@@ -336,7 +336,7 @@ Livestax.on("pet-finder.newpet", function(petName) {
 8. Clear History
 ---
 
-Livestax provides a menu in the top right of your app, however, you may want to add additional item to it. Livestax provides a way of doing this using the `Livestax.menu.set()` function, to read more on this visit the [Livestax documentation](https://github.com/livestax/docs#menu). First let's set the menu item called "Clear History" with an eraser icon in our "main.js":
+Livestax provides a menu in the top right of your app, however, you may want to add additional item to it. Livestax provides a way of doing this using the `Livestax.menu.set()` function, to read more on this visit the [Livestax documentation](http://developers.livestax.com/v0.2.0/docs/app-menu). First let's set the menu item called "Clear History" with an eraser icon in our "main.js":
 
 ```diff
 ...
@@ -402,7 +402,7 @@ app.post('/clearhistory', function(request, response) {
 9. Confirmation Dialog
 ---
 
-We are now successfully clearing the history, however, as this is a destructive action, it would be helpful to provide the users with a dialog to confirm whether or not they are sure. We can do this very simply using the `Livestax.dialog.show()` function, further information is available in the [Livestax documentation](https://github.com/livestax/docs#dialogs).
+We are now successfully clearing the history, however, as this is a destructive action, it would be helpful to provide the users with a dialog to confirm whether or not they are sure. We can do this very simply using the `Livestax.dialog.show()` function, further information is available in the [Livestax documentation](http://developers.livestax.com/v0.2.0/docs/dialogs).
 
 Firstly, we need to create the dialog data that will be passed to the `show()` function:
 
