@@ -399,30 +399,47 @@ app.post('/clearhistory', function(request, response) {
 ...
 ```
 
-9. Confirmation Dialog
+9. Confirmation
 ---
 
-We are now successfully clearing the history, however, as this is a destructive action, it would be helpful to provide the users with a dialog to confirm whether or not they are sure. We can do this very simply using the `Livestax.dialog.show()` function, further information is available in the [Livestax documentation](http://developers.livestax.com/v0.2.0/docs/dialogs).
+We are now successfully clearing the history, however, as this is a destructive action, it would be helpful to provide the users with a confirmation message to confirm whether or not they are sure. There are two methods of achieving this, either the [Livestax Dialog API](http://developers.livestax.com/v0.2.0/docs/dialogs) or the [Livestax Flash API](http://developers.livestax.com/v0.2.0/docs/flash-messages). Both methods are described below.
 
-Firstly, we need to create the dialog data that will be passed to the `show()` function:
+To reduce the duplication of code, we will extract the clear history functionality into its own function.
 
 ```diff
 ...
-Livestax.menu.set("Clear History", "eraser", function() {
++var clearHistory = function() {
++ $.post("/clearhistory", {signed_request: signedRequest});
++ $(".js-pet-names a").remove();
++ $(".notice").show();
++};
+
+-Livestax.menu.set("Clear History", "eraser", function() {
 - $.post("/clearhistory", {signed_request: signedRequest});
 - $(".js-pet-names a").remove();
 - $(".notice").show();
+-});
++Livestax.menu.set("Clear History", "eraser", clearHistory);
+...
+```
+
+
+
+## Dialog
+
+Firstly, we need to create the dialog data that will be passed through to the API call.
+
+```diff
+...
+-Livestax.menu.set("Clear History", "eraser", clearHistory);
++Livestax.menu.set("Clear History", "eraser", function() {
 + var dialogData = {
 +   title: "Are you sure?",
 +   message: "Are you sure you want to clear your history? This is an irreversible action and cannot be undone.",
 +   buttons: [
 +     {
 +       title: "Yes",
-+       callback: function(){
-+         $.post("/clearhistory", {signed_request: signedRequest});
-+         $(".js-pet-names a").remove();
-+         $(".notice").show();
-+       },
++       callback: clearHistory
 +       type: "danger"
 +     },
 +     {
@@ -432,11 +449,11 @@ Livestax.menu.set("Clear History", "eraser", function() {
 +     }
 +   ]
 + };
-});
++});
 ...
 ```
 
-Our `dialogData` object contains the title, message and the buttons we want the dialog to display. Notice our functions that cleared the history have moved into a function in the `callback` of the yes button. Now that our data is ready, all we need to do is show the dialog using the `show()` function.
+Our `dialogData` object contains the title, message and the buttons we want the dialog to display. So now our `clearHistory` function is called on the click of "Yes". Now that our data is ready, all we need to do is show the dialog using the `show()` function.
 
 ```diff
 ...
@@ -449,3 +466,32 @@ Livestax.menu.set("Clear History", "eraser", function() {
 ...
 ```
 
+## Flash
+
+Firstly, we need to create the flash data that will be passed through to the API call.
+
+```diff
+...
+-Livestax.menu.set("Clear History", "eraser", clearHistory);
++Livestax.menu.set("Clear History", "eraser", function() {
++ var flashData = {
++   message: "Sure you want to clear your history?",
++   dismiss: function() {},
++   confirm: clearHistory
++ };
++});
+...
+```
+
+Our `flashData` object contains the message and the buttons we want the flash message to display. So now our `clearHistory` function is called on the confirm of the flash message. Now that our data is ready, all we need to do is show the flash message using the `danger()` function, as the result will be destructive. It is important to note, that there are other types available.
+
+```diff
+...
+Livestax.menu.set("Clear History", "eraser", function() {
+  var flashData = {
+    ...
+  };
++ Livestax.flash.danger(flashData);
+});
+...
+```
