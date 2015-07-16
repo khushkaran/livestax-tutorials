@@ -8,7 +8,7 @@ The source code for the tutorials can be found [here](https://github.com/livesta
 
 We'd love to get contributions from you!
 For instructions on how to get set up quickly, follow the installation instructions below.
-Once you're up and running, take a look at the [Contribution Document](https://github.com/livestax/org-share-apps/blob/master/CONTRIBUTING.md) to see how to get your changes merged in.
+Once you're up and running, take a look at the [Contribution Document](https://github.com/livestax/tutorials/blob/master/CONTRIBUTING.md) to see how to get your changes merged in.
 
 ### Installation
 
