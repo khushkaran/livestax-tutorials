@@ -153,7 +153,7 @@ $.getJSON("http://tutorial-pet-service.herokuapp.com/?name=" + petName, function
 6. Receive and Present Data - Part Two
 ---
 
-When using the [Key Value Store](http://developers.livestax.com/v0.2.0/docs/key-value-store), the app needs to
+When using the [Key Value Store](http://developers.livestax.com/js_api/#javascript-api-version-040-communicating-with-other-apps-key-value-store), the app needs to
 watch the store using the `Livestax.store.watch()` function we can then connect this directly to the
 updatePetDetails() function.
 
