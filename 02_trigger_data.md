@@ -38,7 +38,7 @@ $.getJSON("http://tutorial-pet-service.herokuapp.com/?name=" + petName, function
 +Livestax.trigger("newpet", "petName");
 ```
 
-[More information on Triggers](http://developers.livestax.com/js_api/#javascript-api-version-040-communicating-with-other-apps-events)
+[More information on Triggers](http://developers.livestax.com/js_api?v=0.4.0#javascript-api-version-040-communicating-with-other-apps-events)
 
 3. Receive and Present Data - Part One
 ---
@@ -80,7 +80,7 @@ page is ready.
 
 We now have a history of searched pet names, but we also want to be able to
 redisplay the information on that name in the Pet Finder app. To do this, we
-will use a [Key Value Store](http://developers.livestax.com/js_api/#javascript-api-version-040-communicating-with-other-apps-key-value-store)
+will use a [Key Value Store](http://developers.livestax.com/js_api?v=0.4.0#javascript-api-version-040-communicating-with-other-apps-key-value-store)
 where another app can access it. The links are rendered after the JavaScript has
 been loaded, therefore, we need to bind the click capture function to a parent
 of the link. Here, we will use `document.body` as the parent and will communicate
@@ -153,7 +153,7 @@ $.getJSON("http://tutorial-pet-service.herokuapp.com/?name=" + petName, function
 6. Receive and Present Data - Part Two
 ---
 
-When using the [Key Value Store](http://developers.livestax.com/js_api/#javascript-api-version-040-communicating-with-other-apps-key-value-store), the app needs to
+When using the [Key Value Store](http://developers.livestax.com/js_api?v=0.4.0#javascript-api-version-040-communicating-with-other-apps-key-value-store), the app needs to
 watch the store using the `Livestax.store.watch()` function we can then connect this directly to the
 updatePetDetails() function.
 
